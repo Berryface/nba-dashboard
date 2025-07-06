@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
+import io
 from nba_api.stats.endpoints import ScoreboardV2, BoxScoreTraditionalV2
 from datetime import datetime
 
@@ -33,6 +34,10 @@ if modo == "Estadísticas de temporada completa":
 
     
     df = pd.read_csv("nba_players_stats_2023_24.csv")
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
+    csv_data = csv_buffer.getvalue()
+
 
     
     df["MIN"] = df["MIN"].replace(0, 0.1)
@@ -91,6 +96,13 @@ if modo == "Estadísticas de temporada completa":
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")  
+
+    st.sidebar.download_button(
+    label="⬇️ Descargar CSV",
+    data=csv_data,
+    file_name="nba_players_stats_2023_24.csv",
+    mime="text/csv"
+)
 
     
     st.header("🔍 Comparación cara a cara de jugadores")
