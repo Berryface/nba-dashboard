@@ -139,7 +139,7 @@ if modo == "Estadísticas de temporada completa":
     st.plotly_chart(fig_compare, use_container_width=True)
 
     
-    st.subheader("🌟 Comparación en radar (estilo 2K)")
+    st.subheader("🌟 Comparación en radar ")
     radar_stats = ["PTS", "AST", "REB", "STL", "BLK", "FG3M"]
 
     player1_values = jugador1_data[radar_stats].values
